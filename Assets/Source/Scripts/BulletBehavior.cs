@@ -9,7 +9,7 @@ public class BulletBehavior : MonoBehaviour
             Debug.Log("nabrak tembok 1");
             Destroy(gameObject);
         }
-    } 
+    }
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Arena"))
