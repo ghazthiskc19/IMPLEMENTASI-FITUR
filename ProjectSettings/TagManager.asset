@@ -12,7 +12,7 @@ TagManager:
   - Wall
   - Water
   - UI
-  - 
+  - Ground
   - 
   - 
   - 
@@ -56,6 +56,12 @@ TagManager:
     locked: 0
   - name: weapon
     uniqueID: 2322921917
+    locked: 0
+  - name: power ups
+    uniqueID: 3412989647
+    locked: 0
+  - name: text
+    uniqueID: 1693989125
     locked: 0
   m_RenderingLayers:
   - Default

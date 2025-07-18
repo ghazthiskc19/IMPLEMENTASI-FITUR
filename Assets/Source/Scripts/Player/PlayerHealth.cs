@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public float maxHealth = 1000;
-    public float currentHealth = 1000;
+    public float maxHealth = 2;
+    public float currentHealth;
+    public bool isSheildActivate;
     public void Onable()
     {
         EventManager.instance.action += TakeDamage;
@@ -14,14 +15,12 @@ public class PlayerHealth : MonoBehaviour
     }
     public void TakeDamage(float damageAmount)
     {
+        if (isSheildActivate)
+        {
+            isSheildActivate = false;
+            return;
+        }
         currentHealth -= damageAmount;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        UpdateHealthBar();
-    }
-
-    public void TakeHeal(float healAmount)
-    {
-        currentHealth += healAmount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHealthBar();
     }

@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float wallCheckDistance = 1;
     public float gridSize = 1f;
     public float timeToMove = 0.5f;
+    public float originalSpeed = .5f;
     public Vector2 BoxCastSize = new Vector2(1, 1);
     public float lastDirection = 0;
     public float delayTime = 0.5f;
@@ -118,6 +119,15 @@ public class PlayerMovement : MonoBehaviour
         }
         _rb.MovePosition(targetPos);
         isMoving = false;
+    }
+
+    public void ChangeSpeed(float speedUpMultiplier)
+    {
+        timeToMove = timeToMove / speedUpMultiplier;
+    }
+    public void OriginalSpeed()
+    {
+        timeToMove = originalSpeed;
     }
     void DrawDebugBox(Vector2 origin, Vector2 size, Color color)
     {
