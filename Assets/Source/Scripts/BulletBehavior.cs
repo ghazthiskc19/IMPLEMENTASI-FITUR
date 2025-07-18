@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BulletBehavior : MonoBehaviour
 {
-    void OnCollisionEnter(Collision other)
+    void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Arena"))
         {
@@ -10,12 +10,12 @@ public class BulletBehavior : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    void OnTriggerEnter(Collider other)
+    void OnCollisionStay2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Arena"))
         {
-            Debug.Log("nabrak tembok 2");
+            Debug.Log("nabrak tembok 1");
             Destroy(gameObject);
         }
-    } 
+    }
 }
