@@ -1051,6 +1051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9943cfa0b8ca7244a28eb19394332dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerUpEffect: {fileID: 11400000, guid: 14f7dea8681ed2b46bd44db778bc711c, type: 2}
 --- !u!61 &1061920401
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4426,6 +4427,7 @@ MonoBehaviour:
   wallCheckDistance: 0.9
   gridSize: 1
   timeToMove: 0.5
+  originalSpeed: 0.5
   BoxCastSize: {x: 0.75, y: 0.7}
   lastDirection: 0
   delayTime: 0.5
