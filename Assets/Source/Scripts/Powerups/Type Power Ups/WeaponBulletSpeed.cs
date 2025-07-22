@@ -7,6 +7,7 @@ public class WeaponBulletSpeed : PowerUpEffect
     public float duration = 5f;
     public override void Apply(GameObject target)
     {
+        // target.GetComponent<PlayerAttack>().
 
     }
     public override void Remove(GameObject target)

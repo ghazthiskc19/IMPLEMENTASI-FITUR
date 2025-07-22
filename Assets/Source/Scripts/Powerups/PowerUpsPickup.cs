@@ -8,7 +8,6 @@ public class PowerUpsPickup : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player Touch");
             playerPowerUpManager = other.GetComponent<PlayerPowerUpManager>();
             if (playerPowerUpManager != null)
             {

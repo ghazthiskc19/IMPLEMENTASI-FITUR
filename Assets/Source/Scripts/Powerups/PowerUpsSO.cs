@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class PowerUpEffect : ScriptableObject
 {
     [Header("Kategori Power-ups")]
+    public string powerUpName;
     public PowerUpsCategory powerUpsCategory;
     public float duration;
     public abstract void Apply(GameObject target);

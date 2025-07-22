@@ -16,24 +16,28 @@ public class PlayerPowerUpManager : MonoBehaviour
             StopCoroutine(activeCoroutine[category]);
             activePowers[category] = powerUp;
         }
-
-        powerUp.Apply(gameObject);
-        activePowers[category] = powerUp;
-
-        if (powerUp.duration > 0)
+        else
         {
-            Coroutine coroutine = StartCoroutine(PowerUpCoroutine(powerUp));
-            activeCoroutine[category] = coroutine;
+            activePowers.Add(category, powerUp);
+            activeCoroutine.Add(category, null);
         }
+
         powerUp.Apply(gameObject);
+        Coroutine coroutine = StartCoroutine(PowerUpCoroutine(powerUp));
+        activeCoroutine[category] = coroutine;
     }
 
     private IEnumerator PowerUpCoroutine(PowerUpEffect powerUpEffect)
     {
-        yield return new WaitForSeconds(powerUpEffect.duration);
+        float duration = powerUpEffect.duration;
+
+        for (float i = duration; i > 0; i--)
+        {
+            Debug.Log($"{powerUpEffect.name} - {i} detik...");
+            yield return new WaitForSeconds(1f);
+        }
+        powerUpEffect.Remove(gameObject);
         activePowers.Remove(powerUpEffect.powerUpsCategory);
         activeCoroutine.Remove(powerUpEffect.powerUpsCategory);
     }
-
-
 }

@@ -123,11 +123,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void ChangeSpeed(float speedUpMultiplier)
     {
-        timeToMove = timeToMove / speedUpMultiplier;
+        timeToMove /= speedUpMultiplier;
+        delayTime = .5f;
     }
     public void OriginalSpeed()
     {
         timeToMove = originalSpeed;
+        delayTime = .5f;
     }
     void DrawDebugBox(Vector2 origin, Vector2 size, Color color)
     {

@@ -5,9 +5,7 @@ using UnityEngine;
 public class TankMovementSpeed : PowerUpEffect
 {
     public float speedUpMultiplier = 1.5f;
-    public float duration = 5f;
-    private PlayerMovement playerMovement;
-    private float timer;
+    public new float duration = 5f;
 
     public override void Apply(GameObject target)
     {
