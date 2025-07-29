@@ -8,17 +8,19 @@ public class PlayerHealth : MonoBehaviour
     public event Action OnPlayerDied;
     public float maxHealth = 2;
     public float currentHealth;
-    public float transitionDuration = 1f;
+    public float transitionDuration = 2f;
     public bool isSheildActivate;
     public bool isAlive = true;
     public Image healtbar;
     public Color sheildColor = new(1f, 0.843f, 0f);
     public Color defaultHealthbarColor = new(1f, 0f, 0f);
-    public PlayerPowerUpManager playerPowerUpManager;
+    private PlayerPowerUpManager playerPowerUpManager;
+    private Animator animator;
 
     void Start()
     {
         playerPowerUpManager = GetComponent<PlayerPowerUpManager>();
+        animator = GetComponent<Animator>();
         currentHealth = maxHealth;
     }
     [ContextMenu("Player kena damage satu")]
@@ -33,7 +35,7 @@ public class PlayerHealth : MonoBehaviour
         if (isSheildActivate)
         {
             isSheildActivate = false;
-
+            playerPowerUpManager.RemovePowerUp(PowerUpsCategory.tank);
             return;
         }
         currentHealth -= damageAmount;
@@ -47,7 +49,7 @@ public class PlayerHealth : MonoBehaviour
     public void UpdateHealthBar(float currentHealth, float maxHealth)
     {
         float percentageHealth = currentHealth / maxHealth;
-        healtbar.DOFillAmount(percentageHealth, transitionDuration).SetEase(Ease.OutElastic);
+        healtbar.DOFillAmount(percentageHealth, transitionDuration).SetEase(Ease.Linear);
     }
 
     public void ApplySheild()
@@ -58,12 +60,13 @@ public class PlayerHealth : MonoBehaviour
     public void RemoveSheild()
     {
         isSheildActivate = false;
-        healtbar.DOColor(defaultHealthbarColor, 0.5f).SetEase(Ease.InOutSine);
+        healtbar.DOColor(defaultHealthbarColor, 0.5f).SetEase(Ease.Linear);
     }
     private void GameOver()
     {
         isAlive = false;
         OnPlayerDied.Invoke();
+        animator.SetTrigger("IsDeath");
     }
 
 }

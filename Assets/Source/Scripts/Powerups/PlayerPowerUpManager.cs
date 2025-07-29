@@ -16,10 +16,13 @@ public class PlayerPowerUpManager : MonoBehaviour
     public Image powerUpWeaponDisplay;
     public TMP_Text powerUpTankDuration;
     public TMP_Text powerUpWeaponDuration;
+    public TMP_Text powerUpTankName;
+    public TMP_Text powerUpWeaponName;
     public Sprite powerUpSprite;
     public Sprite powerUpSpriteDefault;
     private Dictionary<PowerUpsCategory, Image> displayMap;
     private Dictionary<PowerUpsCategory, TMP_Text> durationMap;
+    private Dictionary<PowerUpsCategory, TMP_Text> nameMap;
     void Start()
     {
         displayMap = new Dictionary<PowerUpsCategory, Image>
@@ -33,46 +36,47 @@ public class PlayerPowerUpManager : MonoBehaviour
             { PowerUpsCategory.tank, powerUpTankDuration},
             { PowerUpsCategory.weapon, powerUpWeaponDuration},
         };
+
+        nameMap = new Dictionary<PowerUpsCategory, TMP_Text>
+        {
+            { PowerUpsCategory.tank, powerUpTankName},
+            { PowerUpsCategory.weapon, powerUpWeaponName}
+        };
     }
-    public void addPowerUp(GameObject obj, PowerUpEffect powerUp)
+    public void AddPowerUp(GameObject obj, PowerUpEffect powerUp)
     {
         powerUpSprite = obj.GetComponent<SpriteRenderer>().sprite;
         PowerUpsCategory category = powerUp.powerUpsCategory;
-        if (displayMap.ContainsKey(category))
-            displayMap[category].sprite = powerUpSprite;
-
         if (activePowers.ContainsKey(category))
         {
-            Debug.Log($"Menimpa power-up {category} lama dengan {powerUp.name}");
-            StopCoroutine(activeCoroutine[category]);
-            activePowers[category] = powerUp;
+            Debug.Log($"Timpa {category} lama dengan {powerUp.name}");
+            RemovePowerUp(category);
         }
-        else
-        {
-            activePowers.Add(category, powerUp);
-            activeCoroutine.Add(category, null);
-        }
+        nameMap[category].text = powerUp.powerUpName;
+        displayMap[category].sprite = powerUpSprite;
+        activePowers.Add(category, powerUp);
+        activeCoroutine.Add(category, null);
 
         powerUp.Apply(gameObject);
         Coroutine coroutine = StartCoroutine(PowerUpCoroutine(powerUp));
         activeCoroutine[category] = coroutine;
     }
-    public void RemovePowerUp(PowerUpsCategory powerUpsCategory)
+    public void RemovePowerUp(PowerUpsCategory category)
     {
-        if (activePowers.ContainsKey(powerUpsCategory))
+        if (activePowers.ContainsKey(category))
         {
-            StopCoroutine(activeCoroutine[powerUpsCategory]);
-            activePowers[powerUpsCategory].Remove(gameObject);
-            activePowers.Remove(powerUpsCategory);
-            activeCoroutine.Remove(powerUpsCategory);
-            if (displayMap.ContainsKey(powerUpsCategory))
+            activePowers[category].Remove(gameObject);
+            StopCoroutine(activeCoroutine[category]);
+            activePowers.Remove(category);
+            activeCoroutine.Remove(category);
+            if (displayMap.ContainsKey(category))
             {
-                displayMap[powerUpsCategory].sprite = powerUpSpriteDefault;
-                durationMap[powerUpsCategory].text = "";
+                displayMap[category].sprite = powerUpSpriteDefault;
+                durationMap[category].text = "sec";
+                nameMap[category].text = "NONE";
             }
         }
     }
-
     private IEnumerator PowerUpCoroutine(PowerUpEffect powerUpEffect)
     {
         float duration = powerUpEffect.duration;

@@ -3,33 +3,32 @@ using UnityEngine;
 public class BulletBehavior : MonoBehaviour
 {
     public float bulletDamage = 1;
-    private PlayerHealth playerHealth;
+    private Animator animator;
+    private Rigidbody2D _rb;
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        _rb = GetComponent<Rigidbody2D>();
+    }
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Arena"))
-        {
-            Destroy(gameObject);
-        }
-
-        if (other.gameObject.CompareTag("Enemy") ||
-        other.gameObject.CompareTag("Player"))
-        {
-            playerHealth = other.gameObject.GetComponent<PlayerHealth>();
-            playerHealth.TakeDamage(bulletDamage);
-        }
+        HandleCollision(other);
     }
-    void OnCollisionStay2D(Collision2D other)
+
+    private void HandleCollision(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Arena"))
+        PlayerHealth playerHealth = other.gameObject.GetComponent<PlayerHealth>();
+        if (playerHealth != null)
         {
-            Destroy(gameObject);
+            playerHealth.TakeDamage(bulletDamage);
         }
 
-        if (other.gameObject.CompareTag("Enemy") ||
-        other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Arena") || playerHealth != null)
         {
-            playerHealth = other.gameObject.GetComponent<PlayerHealth>();
-            playerHealth.TakeDamage(bulletDamage);
+            _rb.linearVelocity = Vector3.zero;
+            animator.SetTrigger("IsCollision");
+            GetComponent<Collider2D>().enabled = false;
+            Destroy(gameObject, 0.2f);
         }
     }
 }

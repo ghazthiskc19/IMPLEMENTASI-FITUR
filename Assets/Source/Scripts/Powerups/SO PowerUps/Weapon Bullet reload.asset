@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69684836103dde4cbd8fe2c23d2c323, type: 3}
-  m_Name: Weaon Double Attack
+  m_Name: Weapon Bullet reload
   m_EditorClassIdentifier: 
-  powerUpName: double attack
+  powerUpName: bullet reload
   powerUpsCategory: 1
-  duration: 5
+  duration: 7
+  speedUpMultiplier: 2.5

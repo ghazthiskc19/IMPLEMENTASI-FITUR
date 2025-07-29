@@ -12,7 +12,7 @@ public class PowerUpsPickup : MonoBehaviour
             PlayerPowerUpManager playerPowerUpManager = other.GetComponent<PlayerPowerUpManager>();
             if (playerPowerUpManager != null)
             {
-                playerPowerUpManager.addPowerUp(gameObject, powerUpEffect);
+                playerPowerUpManager.AddPowerUp(gameObject, powerUpEffect);
                 Destroy(gameObject);
             }
         }
