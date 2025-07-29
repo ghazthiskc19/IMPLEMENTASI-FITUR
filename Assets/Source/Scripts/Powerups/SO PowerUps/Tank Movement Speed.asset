@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e5fd350617f0545b3e0f1449f652a1, type: 3}
   m_Name: Tank Movement Speed
   m_EditorClassIdentifier: 
+  powerUpName: movement speed
   powerUpsCategory: 0
-  speedUpMultiplier: 1.5
   duration: 5
+  speedUpMultiplier: 1.5

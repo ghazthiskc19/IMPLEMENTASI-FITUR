@@ -4,16 +4,17 @@ public class PowerUpsPickup : MonoBehaviour
 {
     private PlayerPowerUpManager playerPowerUpManager;
     public PowerUpEffect powerUpEffect;
-    void OnTriggerEnter2D(Collider2D other)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            playerPowerUpManager = other.GetComponent<PlayerPowerUpManager>();
+            PlayerPowerUpManager playerPowerUpManager = other.GetComponent<PlayerPowerUpManager>();
             if (playerPowerUpManager != null)
             {
-                playerPowerUpManager.addPowerUp(powerUpEffect);
+                playerPowerUpManager.addPowerUp(gameObject, powerUpEffect);
+                Destroy(gameObject);
             }
-            Destroy(gameObject);
         }
     }
 }

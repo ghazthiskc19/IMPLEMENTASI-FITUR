@@ -6,16 +6,17 @@ TagManager:
   tags:
   - Arena
   - Enemy
+  - PowerUp
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Wall
+  - Arena
   - Water
   - UI
   - Ground
-  - 
-  - 
+  - Player
+  - Power Up
   - 
   - 
   - 

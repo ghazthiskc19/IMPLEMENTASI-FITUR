@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe8025005820674ca3a123ca0ebed3d, type: 3}
   m_Name: Tank Sheild
   m_EditorClassIdentifier: 
+  powerUpName: sheild
   powerUpsCategory: 0
-  isSheildActivate: 1
+  duration: 20

@@ -1,33 +1,69 @@
+using UnityEngine.UI;
 using UnityEngine;
+using DG.Tweening;
+using System;
 
 public class PlayerHealth : MonoBehaviour
 {
+    public event Action OnPlayerDied;
     public float maxHealth = 2;
     public float currentHealth;
+    public float transitionDuration = 1f;
     public bool isSheildActivate;
-    public void Onable()
+    public bool isAlive = true;
+    public Image healtbar;
+    public Color sheildColor = new(1f, 0.843f, 0f);
+    public Color defaultHealthbarColor = new(1f, 0f, 0f);
+    public PlayerPowerUpManager playerPowerUpManager;
+
+    void Start()
     {
-        EventManager.instance.action += TakeDamage;
+        playerPowerUpManager = GetComponent<PlayerPowerUpManager>();
+        currentHealth = maxHealth;
     }
-    public void Osable()
+    [ContextMenu("Player kena damage satu")]
+    public void TakeDamageOne()
     {
-        EventManager.instance.action -= TakeDamage;
+        TakeDamage(1);
     }
     public void TakeDamage(float damageAmount)
     {
+        if (!isAlive) return;
+
         if (isSheildActivate)
         {
             isSheildActivate = false;
+
             return;
         }
         currentHealth -= damageAmount;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        UpdateHealthBar();
+        if (currentHealth <= 0)
+        {
+            GameOver();
+        }
+        UpdateHealthBar(currentHealth, maxHealth);
     }
 
-    public void UpdateHealthBar()
+    public void UpdateHealthBar(float currentHealth, float maxHealth)
     {
+        float percentageHealth = currentHealth / maxHealth;
+        healtbar.DOFillAmount(percentageHealth, transitionDuration).SetEase(Ease.OutElastic);
+    }
 
+    public void ApplySheild()
+    {
+        isSheildActivate = true;
+        healtbar.DOColor(sheildColor, 0.5f).SetEase(Ease.InOutSine);
+    }
+    public void RemoveSheild()
+    {
+        isSheildActivate = false;
+        healtbar.DOColor(defaultHealthbarColor, 0.5f).SetEase(Ease.InOutSine);
+    }
+    private void GameOver()
+    {
+        isAlive = false;
+        OnPlayerDied.Invoke();
     }
 
 }

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f69684836103dde4cbd8fe2c23d2c323, type: 3}
   m_Name: Weaon Double Attack
   m_EditorClassIdentifier: 
+  powerUpName: double attack
   powerUpsCategory: 1
   duration: 5

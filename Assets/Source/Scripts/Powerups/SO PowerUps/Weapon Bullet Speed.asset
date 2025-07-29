@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5358cc91574da8c4292809e753884808, type: 3}
   m_Name: Weapon Bullet Speed
   m_EditorClassIdentifier: 
+  powerUpName: bullet speed
   powerUpsCategory: 1
-  speedUpMultiplier: 1.5
   duration: 5
+  speedUpMultiplier: 1.5
