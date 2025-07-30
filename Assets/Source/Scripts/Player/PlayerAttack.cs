@@ -37,6 +37,9 @@ public class PlayerAttack : MonoBehaviour
         GameObject j = Instantiate(bullet, transform.position, transform.rotation);
         Rigidbody2D rigidbody2D = j.GetComponent<Rigidbody2D>();
         rigidbody2D.linearVelocity = bulletSpeed * transform.up;
+
+        BulletBehavior k = j.GetComponent<BulletBehavior>();
+        k.targetTag = "Enemy";
     }
     public void ChangeAttackSpeed(float speedUpMultiplier)
     {

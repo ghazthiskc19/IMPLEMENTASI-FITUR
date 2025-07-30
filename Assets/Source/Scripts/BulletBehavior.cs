@@ -3,6 +3,7 @@ using UnityEngine;
 public class BulletBehavior : MonoBehaviour
 {
     public float bulletDamage = 1;
+    public string targetTag;
     private Animator animator;
     private Rigidbody2D _rb;
     void Start()
@@ -10,25 +11,35 @@ public class BulletBehavior : MonoBehaviour
         animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody2D>();
     }
-    void OnCollisionEnter2D(Collision2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         HandleCollision(other);
     }
 
-    private void HandleCollision(Collision2D other)
+    private void HandleCollision(Collider2D other)
     {
-        PlayerHealth playerHealth = other.gameObject.GetComponent<PlayerHealth>();
-        if (playerHealth != null)
+        bool hitValidTarget = false;
+        if (other.CompareTag(targetTag))
         {
-            playerHealth.TakeDamage(bulletDamage);
-        }
+            IDamagable damagableObject = other.gameObject.GetComponent<IDamagable>();
+            if (damagableObject != null)
+            {
+                Debug.Log("Kena");
+                damagableObject.TakeDamage(bulletDamage);
+                hitValidTarget = true;
 
-        if (other.gameObject.CompareTag("Arena") || playerHealth != null)
-        {
-            _rb.linearVelocity = Vector3.zero;
-            animator.SetTrigger("IsCollision");
-            GetComponent<Collider2D>().enabled = false;
-            Destroy(gameObject, 0.2f);
+            }
         }
+        if (hitValidTarget || other.CompareTag("Arena"))
+        {
+            DestroyBullet();
+        }
+    }
+    public void DestroyBullet()
+    {
+        _rb.linearVelocity = Vector3.zero;
+        animator.SetTrigger("IsCollision");
+        GetComponent<Collider2D>().enabled = false;
+        Destroy(gameObject, 0.2f);
     }
 }

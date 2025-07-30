@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IMoveable
 {
     public LayerMask wallLayer;
     public Vector2 BoxCastSize = new Vector2(1, 1);
@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _canMove = false;
     }
-    private void MoveForward()
+    public void MoveForward()
     {
         if (!_isHitWall)
         {
@@ -128,7 +128,6 @@ public class PlayerMovement : MonoBehaviour
         timeToMove = originalSpeed;
         delayTime = .5f;
     }
-
     void DrawDebugBox(Vector2 origin, Vector2 size, Color color)
     {
         Vector2 halfSize = size / 2;

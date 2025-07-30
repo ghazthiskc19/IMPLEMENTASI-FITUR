@@ -3,7 +3,7 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour, IDamagable
 {
     public event Action OnPlayerDied;
     public float maxHealth = 2;

@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class PlayerArenaTrigger : MonoBehaviour
 {
-    private PlayerMovement playerMovement;
+    private IMoveable _moveableObject;
     void Start()
     {
-        playerMovement = GetComponentInParent<PlayerMovement>();
+        _moveableObject = GetComponentInParent<IMoveable>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Arena"))
         {
-            playerMovement.SetIsHitWall(true);
+            _moveableObject.SetIsHitWall(true);
         }
     }
 
@@ -20,7 +20,7 @@ public class PlayerArenaTrigger : MonoBehaviour
     {
         if (other.CompareTag("Arena"))
         {
-            playerMovement.SetIsHitWall(false);
+            _moveableObject.SetIsHitWall(false);
         }
     }
 }
