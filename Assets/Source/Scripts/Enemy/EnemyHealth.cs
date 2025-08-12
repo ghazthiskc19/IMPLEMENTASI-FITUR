@@ -2,6 +2,7 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 using System.Collections;
+using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour, IDamagable
 {
@@ -77,6 +78,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable
         isAlive = false;
         OnEnemyDead?.Invoke();
         animator.SetTrigger("IsDeath");
+        Destroy(gameObject, 2f);
+        
     }
-
 }
