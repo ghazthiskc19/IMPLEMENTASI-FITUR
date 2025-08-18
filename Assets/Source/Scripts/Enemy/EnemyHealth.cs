@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour, IDamagable
 {
-    public event Action OnEnemyDead;
+    public event Action<GameObject> OnEnemyDead;
     public float maxHealth = 2;
     public float currentHealth;
     public float transitionDuration = 1f;
@@ -76,9 +76,8 @@ public class EnemyHealth : MonoBehaviour, IDamagable
     private void GameOver()
     {
         isAlive = false;
-        OnEnemyDead?.Invoke();
+        OnEnemyDead?.Invoke(gameObject);
         animator.SetTrigger("IsDeath");
         Destroy(gameObject, 2f);
-        
     }
 }

@@ -40,7 +40,7 @@ public class HamburgerMenuButton : MonoBehaviour
 
         // tunggu bentar, terus pindahin ke posisi tengah (posisi target) 
         yield return new WaitForSeconds(delayDuration);
-        MenuObject.DOAnchorPos(MenuTargetPosition, duration).SetEase(Ease.OutQuad).SetUpdate(true);
+        Menu.DOAnchorPos(MenuTargetPosition, duration).SetEase(Ease.OutQuad).SetUpdate(true);
         yield return new WaitForSeconds(delayDuration);
         Time.timeScale = 0f;
     }

@@ -52,7 +52,7 @@ public class EnemyAttack : MonoBehaviour
         BulletBehavior k = j.GetComponent<BulletBehavior>();
         k.targetTag = "Player";
     }
-    public void HandleDeath()
+    public void HandleDeath(GameObject gameObject)
     {
         _canAttack = false;
     }

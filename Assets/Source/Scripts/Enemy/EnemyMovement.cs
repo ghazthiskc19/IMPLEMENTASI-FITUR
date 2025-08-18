@@ -80,7 +80,7 @@ public class EnemyMovement : MonoBehaviour, IMoveable
             
         }
     }
-    private void HandleDead()
+    private void HandleDead(GameObject gameObject)
     {
         _canMove = false;
     }

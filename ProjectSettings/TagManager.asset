@@ -7,6 +7,7 @@ TagManager:
   - Arena
   - Enemy
   - PowerUp
+  - Overlay
   layers:
   - Default
   - TransparentFX
