@@ -58,7 +58,6 @@ public class EnemyMovement : MonoBehaviour, IMoveable
             validDirection.Add(0);
         }
         int randomIndex = Random.Range(0, validDirection.Count);
-        if (validDirection.Count > 2) Debug.Log("Semua arah bisa");
         float choosenDirection = validDirection[randomIndex];
         HandleMove(choosenDirection);
     }

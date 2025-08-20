@@ -19,7 +19,7 @@ TagManager:
   - Player
   - Power Up
   - Enemy
-  - 
+  - Transition
   - 
   - 
   - 
@@ -68,6 +68,9 @@ TagManager:
     locked: 0
   - name: Menu
     uniqueID: 14648743
+    locked: 0
+  - name: Transition
+    uniqueID: 2062126929
     locked: 0
   m_RenderingLayers:
   - Default

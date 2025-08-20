@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a2b0aa36fdda74f99b9d223c35e8c6, type: 3}
   m_Name: Statistics SO
   m_EditorClassIdentifier: 
-  enemyMax: 12
+  enemyMax: 20
   enemyKillCount: 0

@@ -17,6 +17,7 @@ public class EnemySpawner : MonoBehaviour
     public Dictionary<GameObject, GameObject> spawnerEnemyPair = new();
     public GameObject UncomingEnemyWrapper;
     public TMP_Text remainingEnemy;
+    public TMP_Text currentWaveText;
     public TMP_Text EnemyDurationText;
     public TMP_Text waveDescription;
     private float spawnTimer;
@@ -69,7 +70,6 @@ public class EnemySpawner : MonoBehaviour
     {
         if (spawnCountdownActive || remainingToSpawn <= 0) return;
         spawnCountdownActive = true;
-        remainingToSpawn = 6;
         spawnTimer = 0f;
     }
     private void StartNextWave()
@@ -96,28 +96,40 @@ public class EnemySpawner : MonoBehaviour
     }
     private void SpawnEnemy()
     {
-        int count = 0;
-        foreach (var spawner in spawnerEnemyPair.Keys.ToList())
+        int active = spawnerEnemyPair.Values.Count(v => v != null);
+        int freeSpawner = spawnerEnemyPair.Count - active;
+        int maxCanStillSpawn = Mathf.Max(0, stat.enemyMax - (stat.enemyKillCount + active));
+
+        int toSpawn = Mathf.Min(remainingToSpawn, maxCanStillSpawn, freeSpawner);
+        if (toSpawn <= 0)
         {
-            if (remainingToSpawn <= 0) break;
-            if (spawnerEnemyPair[spawner] == null && stat.enemyKillCount + count < stat.enemyMax)
-            {
-                GameObject enemy = DeployEnemy(gameManager.currentWave, spawner.transform);
-                if (enemy == null) return;
-
-                EnemyHealth health = enemy.GetComponent<EnemyHealth>();
-                if (health != null)
-                    health.OnEnemyDead += RemoveEnemyOnDead;
-
-                spawnerEnemyPair[spawner] = enemy;
-                remainingToSpawn--;
-                count++;
-            }
+            UpdateHUD();
+            return;
         }
+
+        var targets = spawnerEnemyPair.Keys
+            .Where(k => spawnerEnemyPair[k] == null)
+            .Take(toSpawn)
+            .ToList();
+        
+        foreach (var spawner in targets)
+        {
+            GameObject enemy = DeployEnemy(gameManager.currentWave, spawner.transform);
+            if (enemy == null) return;
+
+            EnemyHealth health = enemy.GetComponent<EnemyHealth>();
+            if (health != null)
+                health.OnEnemyDead += RemoveEnemyOnDead;
+            spawnerEnemyPair[spawner] = enemy;
+        }
+
+        remainingToSpawn -= toSpawn;
         UpdateHUD();
     }
     public void RemoveEnemyOnDead(GameObject enemy)
     {
+        int active = spawnerEnemyPair.Values.Count(v => v != null);
+        int leftoverEnemy = stat.enemyMax - stat.enemyKillCount;
         if (enemy == null) return;
         EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
         enemyHealth.OnEnemyDead -= RemoveEnemyOnDead;
@@ -127,12 +139,16 @@ public class EnemySpawner : MonoBehaviour
     
         stat.enemyKillCount++;
         remainingToSpawn++;
-        if (remainingToSpawn > 2) OnEnemySpawnReq?.Invoke();
+        Debug.Log(active + " | " + leftoverEnemy);
+
+        if (remainingToSpawn > 2 && !(active == leftoverEnemy)) OnEnemySpawnReq?.Invoke();
         UpdateHUD();
     }
     private void UpdateHUD()
     {
+        int waveIndex = gameManager.currentWave;
         remainingEnemy.text = Mathf.Max(0, stat.enemyMax - stat.enemyKillCount) + " enemy left";
+        currentWaveText.text = "WAVE " + waveIndex;
     }
     private GameObject DeployEnemy(int enemyLevel, Transform spawnerPos)
     {
