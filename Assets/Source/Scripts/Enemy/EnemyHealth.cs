@@ -2,7 +2,6 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 using System.Collections;
-using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour, IDamagable
 {

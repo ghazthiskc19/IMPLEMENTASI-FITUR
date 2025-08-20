@@ -2895,7 +2895,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stat: {fileID: 11400000, guid: 46f9a6a002439f947b5c2c580d495b4a, type: 2}
   remainingToSpawn: 6
-  durationSpawn: 2
+  durationSpawn: 12
   enemyVariant:
   - {fileID: 9070717366118139560, guid: 11c9dcf6ea3c36944bab2a774f8e6765, type: 3}
   - {fileID: 3864227918754969116, guid: c1152ee6441510647a36881044b99f5a, type: 3}
@@ -10826,7 +10826,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemapGround: {fileID: 1753157296}
   tilemapWall: {fileID: 1537954822}
-  spawnDuration: 4
+  spawnDuration: 10
   timer: 0
   TankPowerUp:
   - {fileID: 8311829478697150480, guid: cde1e336613520542a906c13a553c230, type: 3}
